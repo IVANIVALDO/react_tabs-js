@@ -1,25 +1,20 @@
 import React from 'react';
+import './Tabs.scss';
 
-export const Tabs = ({ tabs, activeTabId, onTabSelected }) => {
-  const activeTab = tabs.find(tab => tab.id === activeTabId) || tabs[0];
-
-  return (
-    <div>
-      <ul className="tabs">
-        {tabs.map(tab => (
-          <li key={tab.id}>
-            <button
-              type="button"
-              className="tab"
-              onClick={() => onTabSelected(tab)}
-            >
-              {tab.label}
-            </button>
-          </li>
-        ))}
-      </ul>
-
-      <div data-cy="TabContent">{activeTab.content}</div>
-    </div>
-  );
-};
+export const Tabs = ({ tabs, activeTabId, onTabSelected }) => (
+  <div role="tablist">
+    {tabs.map(tab => (
+      <button
+        key={tab.id}
+        data-cy="tab-button"
+        type="button"
+        role="tab"
+        aria-selected={tab.id === activeTabId}
+        onClick={() => onTabSelected(tab.id)}
+        className={`tab-button ${tab.id === activeTabId ? 'active' : ''}`}
+      >
+        {tab.title}
+      </button>
+    ))}
+  </div>
+);
